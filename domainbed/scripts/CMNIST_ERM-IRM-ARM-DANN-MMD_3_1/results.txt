@@ -1,0 +1,49 @@
+Total records: 4590
+
+-------- Dataset: ColoredMNIST, model selection method: training-domain validation set
+Algorithm             +90%                  +80%                  -90%                  Avg                  
+ERM                   72.4 +/- 0.0          72.7 +/- 0.0          9.8 +/- 0.0           51.6                 
+IRM                   72.7 +/- 0.0          72.9 +/- 0.0          9.8 +/- 0.0           51.8                 
+MMD                   71.5 +/- 0.0          74.0 +/- 0.0          10.1 +/- 0.0          51.9                 
+DANN                  72.4 +/- 0.0          73.3 +/- 0.0          9.7 +/- 0.0           51.8                 
+ARM                   83.9 +/- 0.0          76.2 +/- 0.0          10.0 +/- 0.0          56.7                 
+
+-------- Averages, model selection method: training-domain validation set
+Algorithm                  ColoredMNIST               Avg                       
+ERM                        51.6 +/- 0.0               51.6                      
+IRM                        51.8 +/- 0.0               51.8                      
+MMD                        51.9 +/- 0.0               51.9                      
+DANN                       51.8 +/- 0.0               51.8                      
+ARM                        56.7 +/- 0.0               56.7                      
+
+-------- Dataset: ColoredMNIST, model selection method: leave-one-domain-out cross-validation
+Algorithm             +90%                  +80%                  -90%                  Avg                  
+ERM                   10.1 +/- 0.0          50.1 +/- 0.0          40.9 +/- 0.0          33.7                 
+IRM                   50.5 +/- 0.0          49.4 +/- 0.0          49.0 +/- 0.0          49.6                 
+MMD                   50.7 +/- 0.0          49.4 +/- 0.0          9.8 +/- 0.0           36.6                 
+DANN                  63.3 +/- 0.0          43.4 +/- 0.0          10.0 +/- 0.0          38.9                 
+ARM                   49.6 +/- 0.0          49.4 +/- 0.0          10.1 +/- 0.0          36.4                 
+
+-------- Averages, model selection method: leave-one-domain-out cross-validation
+Algorithm                  ColoredMNIST               Avg                       
+ERM                        33.7 +/- 0.0               33.7                      
+IRM                        49.6 +/- 0.0               49.6                      
+MMD                        36.6 +/- 0.0               36.6                      
+DANN                       38.9 +/- 0.0               38.9                      
+ARM                        36.4 +/- 0.0               36.4                      
+
+-------- Dataset: ColoredMNIST, model selection method: test-domain validation set (oracle)
+Algorithm             +90%                  +80%                  -90%                  Avg                  
+ERM                   67.6 +/- 0.0          66.4 +/- 0.0          26.7 +/- 0.0          53.6                 
+IRM                   73.1 +/- 0.0          72.9 +/- 0.0          51.0 +/- 0.0          65.7                 
+MMD                   61.1 +/- 0.0          65.2 +/- 0.0          29.7 +/- 0.0          52.0                 
+DANN                  71.6 +/- 0.0          72.0 +/- 0.0          22.5 +/- 0.0          55.4                 
+ARM                   85.9 +/- 0.0          74.4 +/- 0.0          27.7 +/- 0.0          62.7                 
+
+-------- Averages, model selection method: test-domain validation set (oracle)
+Algorithm                  ColoredMNIST               Avg                       
+ERM                        53.6 +/- 0.0               53.6                      
+IRM                        65.7 +/- 0.0               65.7                      
+MMD                        52.0 +/- 0.0               52.0                      
+DANN                       55.4 +/- 0.0               55.4                      
+ARM                        62.7 +/- 0.0               62.7                      

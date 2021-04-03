@@ -1,0 +1,49 @@
+Total records: 7650
+
+-------- Dataset: RotatedMNIST, model selection method: training-domain validation set
+Algorithm             0                     15                    30                    45                    60                    75                    Avg                  
+ERM                   95.8 +/- 0.0          98.9 +/- 0.0          99.0 +/- 0.0          99.0 +/- 0.0          98.8 +/- 0.0          96.5 +/- 0.0          98.0                 
+IRM                   93.1 +/- 0.0          98.2 +/- 0.0          98.4 +/- 0.0          98.0 +/- 0.0          98.3 +/- 0.0          93.8 +/- 0.0          96.6                 
+MMD                   95.7 +/- 0.0          99.0 +/- 0.0          99.1 +/- 0.0          98.9 +/- 0.0          98.9 +/- 0.0          95.6 +/- 0.0          97.9                 
+DANN                  95.1 +/- 0.0          98.7 +/- 0.0          98.8 +/- 0.0          98.9 +/- 0.0          98.7 +/- 0.0          95.3 +/- 0.0          97.6                 
+ARM                   94.8 +/- 0.0          99.0 +/- 0.0          99.0 +/- 0.0          98.9 +/- 0.0          98.9 +/- 0.0          96.8 +/- 0.0          97.9                 
+
+-------- Averages, model selection method: training-domain validation set
+Algorithm                  RotatedMNIST               Avg                       
+ERM                        98.0 +/- 0.0               98.0                      
+IRM                        96.6 +/- 0.0               96.6                      
+MMD                        97.9 +/- 0.0               97.9                      
+DANN                       97.6 +/- 0.0               97.6                      
+ARM                        97.9 +/- 0.0               97.9                      
+
+-------- Dataset: RotatedMNIST, model selection method: leave-one-domain-out cross-validation
+Algorithm             0                     15                    30                    45                    60                    75                    Avg                  
+ERM                   X                     X                     X                     X                     X                     X                     X                    
+IRM                   X                     X                     X                     X                     X                     X                     X                    
+MMD                   X                     X                     X                     X                     X                     X                     X                    
+DANN                  X                     X                     X                     X                     X                     X                     X                    
+ARM                   X                     X                     X                     X                     X                     X                     X                    
+
+-------- Averages, model selection method: leave-one-domain-out cross-validation
+Algorithm                  RotatedMNIST               Avg                       
+ERM                        X                          X                         
+IRM                        X                          X                         
+MMD                        X                          X                         
+DANN                       X                          X                         
+ARM                        X                          X                         
+
+-------- Dataset: RotatedMNIST, model selection method: test-domain validation set (oracle)
+Algorithm             0                     15                    30                    45                    60                    75                    Avg                  
+ERM                   95.8 +/- 0.0          98.8 +/- 0.0          99.0 +/- 0.0          99.0 +/- 0.0          98.8 +/- 0.0          96.7 +/- 0.0          98.0                 
+IRM                   92.4 +/- 0.0          97.3 +/- 0.0          97.1 +/- 0.0          97.6 +/- 0.0          97.4 +/- 0.0          93.7 +/- 0.0          95.9                 
+MMD                   95.7 +/- 0.0          98.9 +/- 0.0          98.8 +/- 0.0          98.7 +/- 0.0          98.8 +/- 0.0          96.1 +/- 0.0          97.8                 
+DANN                  95.1 +/- 0.0          98.8 +/- 0.0          98.6 +/- 0.0          98.5 +/- 0.0          98.7 +/- 0.0          95.3 +/- 0.0          97.5                 
+ARM                   96.2 +/- 0.0          99.1 +/- 0.0          98.9 +/- 0.0          99.0 +/- 0.0          98.8 +/- 0.0          96.7 +/- 0.0          98.1                 
+
+-------- Averages, model selection method: test-domain validation set (oracle)
+Algorithm                  RotatedMNIST               Avg                       
+ERM                        98.0 +/- 0.0               98.0                      
+IRM                        95.9 +/- 0.0               95.9                      
+MMD                        97.8 +/- 0.0               97.8                      
+DANN                       97.5 +/- 0.0               97.5                      
+ARM                        98.1 +/- 0.0               98.1                      

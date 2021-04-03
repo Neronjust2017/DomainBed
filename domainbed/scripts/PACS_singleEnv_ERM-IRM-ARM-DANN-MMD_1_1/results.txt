@@ -1,0 +1,49 @@
+Total records: 360
+
+-------- Dataset: PACS, model selection method: training-domain validation set
+Algorithm             A                     C                     P                     S                     Avg                  
+ERM                   86.6 +/- 0.0          80.5 +/- 0.0          95.1 +/- 0.0          79.4 +/- 0.0          85.4                 
+IRM                   84.4 +/- 0.0          76.4 +/- 0.0          97.6 +/- 0.0          73.9 +/- 0.0          83.1                 
+MMD                   81.8 +/- 0.0          74.5 +/- 0.0          96.3 +/- 0.0          75.1 +/- 0.0          81.9                 
+DANN                  83.2 +/- 0.0          77.5 +/- 0.0          92.1 +/- 0.0          63.0 +/- 0.0          78.9                 
+ARM                   84.9 +/- 0.0          79.8 +/- 0.0          95.0 +/- 0.0          73.4 +/- 0.0          83.3                 
+
+-------- Averages, model selection method: training-domain validation set
+Algorithm                  PACS                       Avg                       
+ERM                        85.4 +/- 0.0               85.4                      
+IRM                        83.1 +/- 0.0               83.1                      
+MMD                        81.9 +/- 0.0               81.9                      
+DANN                       78.9 +/- 0.0               78.9                      
+ARM                        83.3 +/- 0.0               83.3                      
+
+-------- Dataset: PACS, model selection method: leave-one-domain-out cross-validation
+Algorithm             A                     C                     P                     S                     Avg                  
+ERM                   X                     X                     X                     X                     X                    
+IRM                   X                     X                     X                     X                     X                    
+MMD                   X                     X                     X                     X                     X                    
+DANN                  X                     X                     X                     X                     X                    
+ARM                   X                     X                     X                     X                     X                    
+
+-------- Averages, model selection method: leave-one-domain-out cross-validation
+Algorithm                  PACS                       Avg                       
+ERM                        X                          X                         
+IRM                        X                          X                         
+MMD                        X                          X                         
+DANN                       X                          X                         
+ARM                        X                          X                         
+
+-------- Dataset: PACS, model selection method: test-domain validation set (oracle)
+Algorithm             A                     C                     P                     S                     Avg                  
+ERM                   85.4 +/- 0.0          76.5 +/- 0.0          95.4 +/- 0.0          78.3 +/- 0.0          83.9                 
+IRM                   22.8 +/- 0.0          22.2 +/- 0.0          25.9 +/- 0.0          4.1 +/- 0.0           18.8                 
+MMD                   81.8 +/- 0.0          74.6 +/- 0.0          92.9 +/- 0.0          80.9 +/- 0.0          82.6                 
+DANN                  18.3 +/- 0.0          19.8 +/- 0.0          17.4 +/- 0.0          16.4 +/- 0.0          18.0                 
+ARM                   79.2 +/- 0.0          81.7 +/- 0.0          95.6 +/- 0.0          73.3 +/- 0.0          82.4                 
+
+-------- Averages, model selection method: test-domain validation set (oracle)
+Algorithm                  PACS                       Avg                       
+ERM                        83.9 +/- 0.0               83.9                      
+IRM                        18.8 +/- 0.0               18.8                      
+MMD                        82.6 +/- 0.0               82.6                      
+DANN                       18.0 +/- 0.0               18.0                      
+ARM                        82.4 +/- 0.0               82.4                      
