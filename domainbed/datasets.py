@@ -30,7 +30,9 @@ DATASETS = [
     "SVIRO",
     # WILDS datasets
     "WILDSCamelyon",
-    "WILDSFMoW"
+    "WILDSFMoW",
+    # Synthetic2Real
+    "Syn2Real"
 ]
 
 def get_dataset_class(dataset_name):
@@ -258,6 +260,13 @@ class SVIRO(MultipleEnvironmentImageFolder):
         self.dir = os.path.join(root, "sviro/")
         super().__init__(self.dir, test_envs, hparams['data_augmentation'], hparams)
 
+class Syn2Real(MultipleEnvironmentImageFolder):
+    CHECKPOINT_FREQ = 300
+    ENVIRONMENTS = ["R1", "R2", "S"]   # S: Synthetic R: Real1 R: Real2
+
+    def __init__(self, root, test_envs, hparams):
+        self.dir = os.path.join(root, "Syn2Real/")
+        super().__init__(self.dir, test_envs, hparams['data_augmentation'], hparams)
 
 class WILDSEnvironment:
     def __init__(
@@ -289,7 +298,6 @@ class WILDSEnvironment:
 
     def __len__(self):
         return len(self.indices)
-
 
 class WILDSDataset(MultipleDomainDataset):
     INPUT_SHAPE = (3, 224, 224)

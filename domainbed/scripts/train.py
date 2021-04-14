@@ -112,12 +112,14 @@ if __name__ == "__main__":
     # domain generalization and domain adaptation results, then domain
     # generalization algorithms should create the same 'uda-splits', which will
     # be discared at training.
-    in_splits = []
-    out_splits = []
-    uda_splits = []
+    in_splits = []      # training splits
+    out_splits = []     # validation splits
+    uda_splits = []     # uda splits
     for env_i, env in enumerate(dataset):
         uda = []
 
+        # out: validation
+        # in_: training
         out, in_ = misc.split_dataset(env,
             int(len(env)*args.holdout_fraction),
             misc.seed_hash(args.trial_seed, env_i))
