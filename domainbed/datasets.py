@@ -8,6 +8,8 @@ import torchvision.datasets.folder
 from torch.utils.data import TensorDataset, Subset
 from torchvision.datasets import MNIST, ImageFolder
 from torchvision.transforms.functional import rotate
+import numpy as np
+from torch.utils.data import TensorDataset
 
 # from wilds.datasets.camelyon17_dataset import Camelyon17Dataset
 # from wilds.datasets.fmow_dataset import FMoWDataset
@@ -33,6 +35,8 @@ DATASETS = [
     "WILDSFMoW",
     # Synthetic2Real
     "Syn2Real"
+    # ECG 
+    "MIT_BIH"
 ]
 
 def get_dataset_class(dataset_name):
@@ -344,7 +348,6 @@ class WILDSDataset(MultipleDomainDataset):
         metadata_vals = wilds_dataset.metadata_array[:, metadata_index]
         return sorted(list(set(metadata_vals.view(-1).tolist())))
 
-
 # class WILDSCamelyon(WILDSDataset):
 #     ENVIRONMENTS = [ "hospital_0", "hospital_1", "hospital_2", "hospital_3",
 #             "hospital_4"]
@@ -361,3 +364,50 @@ class WILDSDataset(MultipleDomainDataset):
 #         dataset = FMoWDataset(root_dir=root)
 #         super().__init__(
 #             dataset, "region", test_envs, hparams['data_augmentation'], hparams)
+
+class MultipleEnvironmentECGFolder(MultipleDomainDataset):
+    def __init__(self, root, test_envs, classes, hparams):
+        super().__init__()
+
+        environments = [f.name for f in os.scandir(root) if f.is_dir()]
+        environments = sorted(environments)
+        self.datasets = []
+
+        for i, environment in enumerate(environments):
+
+            path = os.path.join(root, environment)
+            dirs = os.listdir(path)
+            datas = []
+            labels_onehot = []
+            for d in dirs:
+                data = np.load(os.path.join(path, d, "samples.npy"))
+                labels = np.load(os.path.join(path, d, "labels.npy"))
+                labels = list(labels)
+                for j, label in enumerate(labels):
+                    if label in classes:
+                        # one_hot = np.zeros(len(classes, ))
+                        # one_hot[classes.index(label)] = 1
+                        # labels_onehot.append(one_hot)
+                        labels_onehot.append(classes.index(label))
+                        datas.append(data[j,:,:])
+
+            datas = np.array(datas)
+            labels_onehot = np.array(labels_onehot)
+            datas = datas.swapaxes(1,2)
+            X = torch.tensor(datas).float()
+            Y = torch.tensor(labels_onehot)
+            env_dataset = TensorDataset(X, Y)
+            self.datasets.append(env_dataset)
+
+        self.input_shape = (1, 280)
+        self.num_classes = len(classes)
+
+class MIT_BIH(MultipleEnvironmentECGFolder):
+    N_STEPS = 20000
+    CHECKPOINT_FREQ = 300
+    ENVIRONMENTS = ["DS1", "DS2", "DS3", "DS4"]
+
+    def __init__(self, root, test_envs, hparams):
+        self.dir = os.path.join(root, "MIT-BIH/")
+        self.classes = ['N', 'S', 'V', 'F']
+        super().__init__(self.dir, test_envs, self.classes, hparams)

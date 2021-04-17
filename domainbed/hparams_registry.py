@@ -29,7 +29,7 @@ def _hparams(algorithm, dataset, random_seed):
     _hparam('data_augmentation', True, lambda r: True)
     _hparam('resnet18', False, lambda r: False)
     _hparam('resnet_dropout', 0., lambda r: r.choice([0., 0.1, 0.5]))
-    _hparam('class_balanced', False, lambda r: False)
+    _hparam('class_balanced', True, lambda r: False)
     _hparam('nonlinear_classifier', False, lambda r: bool(r.choice([False, True])))
 
     # Algorithm-specific hparam definitions. Each block of code below
@@ -82,45 +82,55 @@ def _hparams(algorithm, dataset, random_seed):
     # Dataset-and-algorithm-specific hparam definitions. Each block of code
     # below corresponds to exactly one hparam. Avoid nested conditionals.
 
-    if dataset in SMALL_IMAGES:
-        _hparam('lr', 1e-3, lambda r: 10**r.uniform(-4.5, -2.5))
-    else:
-        _hparam('lr', 5e-5, lambda r: 10**r.uniform(-5, -3.5))
-
-
-    if dataset in SMALL_IMAGES:
+    if dataset == 'MIT_BIH':
+        _hparam('lr', 1e-3, lambda r: 10 ** r.uniform(-4.5, -2.5))
         _hparam('weight_decay', 0., lambda r: 0.)
+        _hparam('batch_size', 64, lambda r: int(2 ** r.uniform(3, 9)))
+
+        if algorithm in ['DANN', 'CDANN']:
+            _hparam('lr_g', 1e-3, lambda r: 10**r.uniform(-4.5, -2.5) )
+            _hparam('lr_d', 1e-3, lambda r: 10 ** r.uniform(-4.5, -2.5))
+            _hparam('weight_decay_g', 0., lambda r: 0.)
+
     else:
-        _hparam('weight_decay', 0., lambda r: 10**r.uniform(-6, -2))
+        if dataset in SMALL_IMAGES:
+            _hparam('lr', 1e-3, lambda r: 10**r.uniform(-4.5, -2.5))
+        else:
+            _hparam('lr', 5e-5, lambda r: 10**r.uniform(-5, -3.5))
 
 
-    if dataset in SMALL_IMAGES:
-        _hparam('batch_size', 64, lambda r: int(2**r.uniform(3, 9)) )
-    elif algorithm == 'ARM':
-        _hparam('batch_size', 8, lambda r: 8)
-    elif dataset == 'DomainNet':
-        _hparam('batch_size', 32, lambda r: int(2**r.uniform(3, 5)) )
-    else:
-        _hparam('batch_size', 32, lambda r: int(2**r.uniform(3, 5.5)) )
+        if dataset in SMALL_IMAGES:
+            _hparam('weight_decay', 0., lambda r: 0.)
+        else:
+            _hparam('weight_decay', 0., lambda r: 10**r.uniform(-6, -2))
 
 
-    if algorithm in ['DANN', 'CDANN'] and dataset in SMALL_IMAGES:
-        _hparam('lr_g', 1e-3, lambda r: 10**r.uniform(-4.5, -2.5) )
-    elif algorithm in ['DANN', 'CDANN']:
-        _hparam('lr_g', 5e-5, lambda r: 10**r.uniform(-5, -3.5) )
+        if dataset in SMALL_IMAGES:
+            _hparam('batch_size', 64, lambda r: int(2**r.uniform(3, 9)) )
+        elif algorithm == 'ARM':
+            _hparam('batch_size', 8, lambda r: 8)
+        elif dataset == 'DomainNet':
+            _hparam('batch_size', 32, lambda r: int(2**r.uniform(3, 5)) )
+        else:
+            _hparam('batch_size', 32, lambda r: int(2**r.uniform(3, 5.5)) )
 
 
-    if algorithm in ['DANN', 'CDANN'] and dataset in SMALL_IMAGES:
-        _hparam('lr_d', 1e-3, lambda r: 10**r.uniform(-4.5, -2.5) )
-    elif algorithm in ['DANN', 'CDANN']:
-        _hparam('lr_d', 5e-5, lambda r: 10**r.uniform(-5, -3.5) )
+        if algorithm in ['DANN', 'CDANN'] and dataset in SMALL_IMAGES:
+            _hparam('lr_g', 1e-3, lambda r: 10**r.uniform(-4.5, -2.5) )
+        elif algorithm in ['DANN', 'CDANN']:
+            _hparam('lr_g', 5e-5, lambda r: 10**r.uniform(-5, -3.5) )
 
 
-    if algorithm in ['DANN', 'CDANN'] and dataset in SMALL_IMAGES:
-        _hparam('weight_decay_g', 0., lambda r: 0.)
-    elif algorithm in ['DANN', 'CDANN']:
-        _hparam('weight_decay_g', 0., lambda r: 10**r.uniform(-6, -2) )
+        if algorithm in ['DANN', 'CDANN'] and dataset in SMALL_IMAGES:
+            _hparam('lr_d', 1e-3, lambda r: 10**r.uniform(-4.5, -2.5) )
+        elif algorithm in ['DANN', 'CDANN']:
+            _hparam('lr_d', 5e-5, lambda r: 10**r.uniform(-5, -3.5) )
 
+
+        if algorithm in ['DANN', 'CDANN'] and dataset in SMALL_IMAGES:
+            _hparam('weight_decay_g', 0., lambda r: 0.)
+        elif algorithm in ['DANN', 'CDANN']:
+            _hparam('weight_decay_g', 0., lambda r: 10**r.uniform(-6, -2) )
 
     return hparams
 

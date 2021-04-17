@@ -186,6 +186,71 @@ class ContextNet(nn.Module):
     def forward(self, x):
         return self.context_net(x)
 
+class ECGNet(nn.Module):
+
+    n_outputs = 64
+
+    def __init__(self, input_shape, hparams):
+        super(ECGNet, self).__init__()
+        self.conv1 = nn.Conv1d(input_shape[0], 16, 5, 1, padding=1)
+        self.conv2 = nn.Conv1d(16, 16, 5, 1, padding=1)
+
+        self.conv3 = nn.Conv1d(16, 32, 3, 1, padding=1)
+        self.conv4 = nn.Conv1d(32, 32, 3, 1, padding=1)
+
+        self.conv5 = nn.Conv1d(32, 64, 3, 1, padding=1)
+        self.conv6 = nn.Conv1d(64, 64, 3, 1, padding=1)
+
+        self.bn1 = nn.BatchNorm1d(16)
+        self.bn2 = nn.BatchNorm1d(16)
+        self.bn3 = nn.BatchNorm1d(32)
+        self.bn4 = nn.BatchNorm1d(32)
+        self.bn5 = nn.BatchNorm1d(64)
+        self.bn6 = nn.BatchNorm1d(64)
+
+        self.dp1 = nn.Dropout(0.2)
+        self.dp2 = nn.Dropout(0.2)
+        self.dp3 = nn.Dropout(0.2)
+
+        self.pool1 = nn.MaxPool1d(2)
+        self.pool2 = nn.MaxPool1d(2)
+        self.pool3 = nn.MaxPool1d(2)
+
+        self.avgpool = nn.AdaptiveAvgPool1d((1))
+        self.squeezeLastTwo = SqueezeLastTwo()
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = F.relu(x)
+        x = self.bn1(x)
+        x = self.conv2(x)
+        x = F.relu(x)
+        x = self.bn2(x)
+        x = self.pool1(x)
+        x = self.dp1(x)
+
+        x = self.conv3(x)
+        x = F.relu(x)
+        x = self.bn3(x)
+        x = self.conv4(x)
+        x = F.relu(x)
+        x = self.bn4(x)
+        x = self.pool2(x)
+        x = self.dp2(x)
+
+        x = self.conv5(x)
+        x = F.relu(x)
+        x = self.bn5(x)
+        x = self.conv6(x)
+        x = F.relu(x)
+        x = self.bn6(x)
+        x = self.pool3(x)
+        x = self.dp3(x)
+
+        x = self.avgpool(x)
+        x = self.squeezeLastTwo(x)
+
+        return x
 
 def Featurizer(input_shape, hparams):
     """Auto-select an appropriate featurizer for the given input shape."""
@@ -197,6 +262,9 @@ def Featurizer(input_shape, hparams):
         return wide_resnet.Wide_ResNet(input_shape, 16, 2, 0.)
     elif input_shape[1:3] == (224, 224):
         return ResNet(input_shape, hparams)
+    # 心电数据
+    elif input_shape == (1, 280):
+        return ECGNet(input_shape, hparams)
     else:
         raise NotImplementedError
 
