@@ -19,7 +19,9 @@ def load_records(path):
             with open(results_path, "r") as f:
                 for line in f:
                     records.append(json.loads(line[:-1]))
-        except IOError:
+        # except IOError:
+        #     pass
+        except Exception:
             pass
 
     return Q(records)

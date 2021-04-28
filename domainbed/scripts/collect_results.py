@@ -134,7 +134,10 @@ def print_results_tables(records, selection_method, latex):
         if None in means:
             table[i][-1] = "X"
         else:
-            table[i][-1] = "{:.1f}".format(sum(means) / len(means))
+            try:
+                table[i][-1] = "{:.1f}".format(sum(means) / len(means))
+            except Exception:
+                table[i][-1] = 'E'
 
     col_labels = ["Algorithm", *dataset_names, "Avg"]
     header_text = f"Averages, model selection method: {selection_method.name}"

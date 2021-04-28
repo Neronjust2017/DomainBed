@@ -129,6 +129,7 @@ if __name__ == "__main__":
                 int(len(in_)*args.uda_holdout_fraction),
                 misc.seed_hash(args.trial_seed, env_i))
 
+        sta = time.time()
         if hparams['class_balanced']:
             in_weights = misc.make_weights_for_balanced_classes(in_)
             out_weights = misc.make_weights_for_balanced_classes(out)
@@ -136,6 +137,9 @@ if __name__ == "__main__":
                 uda_weights = misc.make_weights_for_balanced_classes(uda)
         else:
             in_weights, out_weights, uda_weights = None, None, None
+        end = time.time()
+        print("time:", sta-end)
+
         in_splits.append((in_, in_weights))
         out_splits.append((out, out_weights))
         if len(uda):

@@ -13,6 +13,7 @@ from torch.utils.data import TensorDataset
 
 # from wilds.datasets.camelyon17_dataset import Camelyon17Dataset
 # from wilds.datasets.fmow_dataset import FMoWDataset
+from domainbed.wilds_datasets import Camelyon17Dataset
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -34,7 +35,7 @@ DATASETS = [
     "WILDSCamelyon",
     "WILDSFMoW",
     # Synthetic2Real
-    "Syn2Real"
+    "Syn2Real",
     # ECG 
     "MIT_BIH"
 ]
@@ -348,13 +349,13 @@ class WILDSDataset(MultipleDomainDataset):
         metadata_vals = wilds_dataset.metadata_array[:, metadata_index]
         return sorted(list(set(metadata_vals.view(-1).tolist())))
 
-# class WILDSCamelyon(WILDSDataset):
-#     ENVIRONMENTS = [ "hospital_0", "hospital_1", "hospital_2", "hospital_3",
-#             "hospital_4"]
-#     def __init__(self, root, test_envs, hparams):
-#         dataset = Camelyon17Dataset(root_dir=root)
-#         super().__init__(
-#             dataset, "hospital", test_envs, hparams['data_augmentation'], hparams)
+class WILDSCamelyon(WILDSDataset):
+    ENVIRONMENTS = [ "hospital_0", "hospital_1", "hospital_2", "hospital_3",
+            "hospital_4"]
+    def __init__(self, root, test_envs, hparams):
+        dataset = Camelyon17Dataset(root_dir=root)
+        super().__init__(
+            dataset, "hospital", test_envs, hparams['data_augmentation'], hparams)
 
 
 # class WILDSFMoW(WILDSDataset):
