@@ -43,8 +43,8 @@ class Job:
         self.train_args = copy.deepcopy(train_args)
         self.train_args['output_dir'] = self.output_dir
         # command = ['python', '-m', 'domainbed.scripts.train']
-        # command = ['/home/weiyuhua/Code/py36env/bin/python3.6', '-m', 'domainbed.scripts.train']
-        command = ['/home/weiyuhua/py3env/bin/python3.6', '-m', 'domainbed.scripts.train']
+        command = ['/home/weiyuhua/Code/py36env/bin/python3.6', '-m', 'domainbed.scripts.train']
+        # command = ['/home/weiyuhua/py3env/bin/python3.6', '-m', 'domainbed.scripts.train']
 
         for k, v in sorted(self.train_args.items()):
             if isinstance(v, list):

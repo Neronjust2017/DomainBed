@@ -263,9 +263,10 @@ def Featurizer(input_shape, hparams):
     elif input_shape[1:3] == (224, 224):
         return ResNet(input_shape, hparams)
     # 心电数据
-    elif input_shape == (1, 280):
+    elif input_shape[1] == 280:
         return ECGNet(input_shape, hparams)
     else:
+        print(input_shape)
         raise NotImplementedError
 
 
